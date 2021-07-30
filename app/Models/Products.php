@@ -11,6 +11,6 @@ class Products extends Model
     use HasFactory;
 
     public function photos(){
-        return $this->hasOne(Photo::class, 'product_id');
+        return $this->hasMany(Photo::class, 'product_id');
     }
 }
