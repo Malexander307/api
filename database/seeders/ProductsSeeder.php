@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class ProductsSeeder extends Seeder
@@ -20,7 +22,9 @@ class ProductsSeeder extends Seeder
             'title' => Str::random(10),
             'description' => Str::random(30),
             'location' => Str::random(10),
-            'price' => rand(1, 25),
+            'price' => 100,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
     }
 }
