@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Products::all();
+        return Products::with('photos')->get();
     }
 
     /**
