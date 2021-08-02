@@ -26,9 +26,9 @@ class ProductRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'location' => 'required|max:255',
-            'description' => 'nullable',
-            'price' => 'required',
-            'photos' => 'image',
+            'description' => 'nullable|',
+            'price' => 'required|',
+            'photos' => 'image|',
         ];
     }
     public function messages() {
