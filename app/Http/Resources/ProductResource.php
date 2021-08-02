@@ -19,6 +19,8 @@ class ProductResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'location' => $this->location,
+            'price' => $this->price,
+            'created_at' => $this->created_at,
             'photo' => PhotoResource::collection($this->photos),
         ];
     }

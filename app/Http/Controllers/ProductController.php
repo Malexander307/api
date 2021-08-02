@@ -12,8 +12,9 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        Log::info($request->user());
         return response(ProductReposetory::productsAll(), 200);
     }
 
