@@ -30,7 +30,6 @@ class ProductController extends Controller
         }catch (\Exception $exception){
             return response($exception, 500);
         }
-
     }
 
     public function show($id)
@@ -50,6 +49,7 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        //
+        ProductService::deleteProduct($id);
+        return response('deleted', 200);
     }
 }

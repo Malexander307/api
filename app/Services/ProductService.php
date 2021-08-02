@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Photo;
 use App\Models\Products;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Exception;
 
 class ProductService
 {
@@ -25,11 +26,20 @@ class ProductService
         }
     }
 
+    public static function deleteProduct($id){
+        try {
+            $product = Products::findOrFail($id);
+            $product->photos()->delete();
+            $product->delete();
+        }catch (\Exception $exception){
+            return response($exception, 500);
+        }
+    }
+
     private static function photoSave($files, $id){
         foreach ($files as $file) {
             $link = $file->storeAs('files', time() . '_' . $file->getClientOriginalName());
             Photo::create(['link' => $link, 'product_id' => $id]);
         }
-
     }
 }
