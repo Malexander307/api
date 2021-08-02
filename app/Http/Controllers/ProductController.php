@@ -22,11 +22,9 @@ class ProductController extends Controller
         //
     }
 
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
         try {
-             $validatedData = $request->validated();
-            dd($validatedData);
             ProductService::createProduct($request);
             return response('created', 200);
         }catch (\Exception $exception){
