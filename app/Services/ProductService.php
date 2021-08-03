@@ -39,16 +39,16 @@ class ProductService
 
     private static function photoSave($files){
         try {
-        $client = new Image4IOApi(env('IMAGE_API_KEY'),
-                               env('IMAGE_API_PASS'));
-        dd(env('IMAGE_API_KEY'));
+        $client = new Image4IOApi("bygvX72ZmCvgA0SvEu0pTQ==",
+                               "cDPmh0aIdWHWbMgxtbqyjFS3nKd5ihpIEzLXQjXDu7w=");
+//        dd(env('IMAGE_API_KEY'));
         foreach ($files as $file) {
             try {
                 $response = $client->uploadImage($file,time() . '_' . $file->getClientOriginalName(),'files', true);
                 $link = json_decode($response['content'])->uploadedFiles[0]->url;
                 Photo::create(['link' => $link, 'product_id' => 3]);
             }catch (\Exception $exception){
-                dd($exception);
+                dd($response);
             }
         }
         }catch (\Exception $exception){
