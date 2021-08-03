@@ -47,7 +47,7 @@
       "post-install-cmd": [
          "php artisan clear-compiled",
          "chmod -R 777 public/",
-         "chown www-data:www-data -R storage"
+         "sudo chown www-data:www-data -R storage"
       ]
     },
     "extra": {
