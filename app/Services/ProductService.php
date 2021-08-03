@@ -38,9 +38,9 @@ class ProductService
     }
 
     private static function photoSave($files){
+        try {
         $client = new Image4IOApi(env('IMAGE_API_KEY'),
                                env('IMAGE_API_PASS'));
-//        dd($files);
         foreach ($files as $file) {
             try {
                 $response = $client->uploadImage($file,time() . '_' . $file->getClientOriginalName(),'files', true);
@@ -49,6 +49,9 @@ class ProductService
             }catch (\Exception $exception){
                 dd($exception);
             }
+        }
+        }catch (\Exception $exception){
+            dd($exception);
         }
     }
 }
