@@ -41,6 +41,7 @@ class ProductService
         try {
         $client = new Image4IOApi(env('IMAGE_API_KEY'),
                                env('IMAGE_API_PASS'));
+        dd(env('IMAGE_API_KEY'));
         foreach ($files as $file) {
             try {
                 $response = $client->uploadImage($file,time() . '_' . $file->getClientOriginalName(),'files', true);
