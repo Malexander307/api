@@ -23,7 +23,7 @@ class ProductController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         try {
             ProductService::createProduct($request);

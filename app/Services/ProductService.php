@@ -18,6 +18,7 @@ class ProductService
                 'description' => $request->description,
                 'location' => $request->location,
                 'price' => $request->price,
+                'user_id' => $request->user()->id,
             ])->id;
             self::photoSave($request->file('photos'), $id);
             DB::commit();
@@ -37,16 +38,15 @@ class ProductService
         }
     }
 
-    private static function photoSave($files){
+    private static function photoSave($files,$id){
         try {
-        $client = new Image4IOApi("bygvX72ZmCvgA0SvEu0pTQ==",
+        $client = new Image4IOApi("bygvX72ZmCvgA0SvEu0pTQ==",//remake this hardcode
                                "cDPmh0aIdWHWbMgxtbqyjFS3nKd5ihpIEzLXQjXDu7w=");
-//        dd(env('IMAGE_API_KEY'));
         foreach ($files as $file) {
             try {
                 $response = $client->uploadImage($file,time() . '_' . $file->getClientOriginalName(),'files', true);
                 $link = json_decode($response['content'])->uploadedFiles[0]->url;
-                Photo::create(['link' => $link, 'product_id' => 3]);
+                Photo::create(['link' => $link, 'product_id' => $id]);
             }catch (\Exception $exception){
                 dd($response);
             }
