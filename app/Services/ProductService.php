@@ -6,6 +6,7 @@ use App\Models\Photo;
 use App\Models\Products;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
+use Image4IO\Image4IOApi;
 
 class ProductService
 {
@@ -36,10 +37,17 @@ class ProductService
         }
     }
 
-    private static function photoSave($files, $id){
+    private static function photoSave($files){
+        $client = new Image4IOApi(env('IMAGE_API_KEY'),
+                               env('IMAGE_API_PASS'));
         foreach ($files as $file) {
-            $link = $file->storeAs('files', time() . '_' . $file->getClientOriginalName());
-            Photo::create(['link' => $link, 'product_id' => $id]);
+            try {
+                $response = $client->uploadImage($file,time() . '_' . $file->getClientOriginalName(),'files', true);
+                $link = json_decode($response['content'])->uploadedFiles[0]->url;
+                Photo::create(['link' => $link, 'product_id' => 3]);
+            }catch (\Exception $exception){
+                dd($exception);
+            }
         }
     }
 }
