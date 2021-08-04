@@ -23,6 +23,8 @@ class ProductsSeeder extends Seeder
             'description' => Str::random(30),
             'location' => Str::random(10),
             'price' => 100,
+            'user_id' => 1,
+            'category_id' => 2,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
