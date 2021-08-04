@@ -3,26 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
-        $fields = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|unique:users,email',
-            'password' => 'required',
-        ]);
-        //clean code
-        $user = User::create([
-            'name' => $fields['name'],
-            'email' => $fields['email'],
-            'password' => bcrypt($fields['password'])
-        ]);
-        //clean code
+        $user = UserService::createUser($request);
         $token = $user->createToken('token')->plainTextToken;
         $response = ['user' => $user, 'token' => $token];
         return response($response, 201);
