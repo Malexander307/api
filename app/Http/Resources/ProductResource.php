@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\PhotoResource;
+use Illuminate\Support\Carbon;
+
 class ProductResource extends JsonResource
 {
     /**
@@ -20,7 +22,7 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'location' => $this->location,
             'price' => $this->price,
-            'created_at' => $this->created_at,
+            'created_at' => Carbon::parse($this->created_at),
             'photo' => PhotoResource::collection($this->photos),
         ];
     }

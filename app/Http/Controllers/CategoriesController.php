@@ -48,7 +48,6 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        dd(Categories::with('products')->first());
         return response(CategoriesReposetory::getCategory($id), 200);
     }
 
