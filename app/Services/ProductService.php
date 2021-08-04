@@ -19,6 +19,7 @@ class ProductService
                 'location' => $request->location,
                 'price' => $request->price,
                 'user_id' => $request->user()->id,
+                'category_id' => $request->category_id,
             ])->id;
             self::photoSave($request->file('photos'), $id);
             DB::commit();
