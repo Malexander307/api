@@ -45,7 +45,7 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        ProductService::updateProduct($request, $id);
     }
 
     public function destroy($id)

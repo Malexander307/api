@@ -41,19 +41,27 @@ class ProductService
 
     private static function photoSave($files,$id){
         try {
-        $client = new Image4IOApi("bygvX72ZmCvgA0SvEu0pTQ==",//remake this hardcode
-                               "cDPmh0aIdWHWbMgxtbqyjFS3nKd5ihpIEzLXQjXDu7w=");
-        foreach ($files as $file) {
-            try {
-                $response = $client->uploadImage($file,time() . '_' . $file->getClientOriginalName(),'files', true);
+            $client = new Image4IOApi(
+                "bygvX72ZmCvgA0SvEu0pTQ==",//remake this hardcode
+                "cDPmh0aIdWHWbMgxtbqyjFS3nKd5ihpIEzLXQjXDu7w="
+            );
+            foreach ($files as $file) {
+                $response = $client->uploadImage($file, time() . '_' . $file->getClientOriginalName(), 'files', true);
                 $link = json_decode($response['content'])->uploadedFiles[0]->url;
                 Photo::create(['link' => $link, 'product_id' => $id]);
-            }catch (\Exception $exception){
-                dd($response);
             }
+        } catch (\Exception $exception) {
+            throw response('error creating photo', 500);
         }
-        }catch (\Exception $exception){
-            dd($exception);
-        }
+    }
+
+    public static function updateProduct($request, $id){
+        $product = Products::find($id);
+        $product->title = $request->title;
+        $product->description = $request->description;
+        $product->description = $request->location;
+        $product->price = $request->price;
+        $product->category_id = $request->category_id;
+        $product->save();
     }
 }
