@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Mail\RestoringEmail;
 use App\Models\RestoringPassword;
 use App\Models\User;
+use App\Services\RestoringService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -23,13 +25,11 @@ class AuthController extends Controller
 
     public function login(Request $request){
         $user = User::where('email', $request->email)->first();
-
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-
         return $user->createToken('token')->plainTextToken;
     }
 
@@ -38,13 +38,14 @@ class AuthController extends Controller
         $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
     }
 
-    public function restorePassword(Request $request){
+    public function restoreEmail(Request $request){
         if(User::where('email', $request->email)->first()){
-            RestoringPassword::create([
-                'email' => $request->email,
-                'token' => Str::random(30),
-            ]);
-
+            Mail::to($request->email)->send(new RestoringEmail(RestoringService::createToken($request)));
         }
+    }
+
+    public function restorePassword(Request $request){
+        $user = User::where('email', RestoringPassword::where('token', $request->token)->first()->email)->first();
+        $user->password(bcrypt($request['password']));
     }
 }
