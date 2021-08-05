@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\RestoringPassword;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -34,5 +36,15 @@ class AuthController extends Controller
     public function logout(){
         $user = request()->user();
         $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
+    }
+
+    public function restorePassword(Request $request){
+        if(User::where('email', $request->email)->first()){
+            RestoringPassword::create([
+                'email' => $request->email,
+                'token' => Str::random(30),
+            ]);
+
+        }
     }
 }
