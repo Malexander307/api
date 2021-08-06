@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,8 @@ Route::post('restorePass', [AuthController::class, 'restorePassword'])->name('re
 Route::group(['middleware' => ['auth:sanctum']], function (){
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('/products', ProductController::class);
+    Route::post('search_name', [SearchController::class, 'searchName']);
+    Route::post('search', [SearchController::class, 'products']);
     Route::resource('/categories', CategoriesController::class);
 });
 

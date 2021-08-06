@@ -14,7 +14,6 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        Log::info($request->user());
         return response(ProductReposetory::productsAll(), 200);
     }
 
