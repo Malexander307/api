@@ -8,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>awdadw</h1>
+    <h1><a href="{{$link}}">Restore password</a></h1>
 </body>
 </html>

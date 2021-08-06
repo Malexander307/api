@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class RestoringPassword extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['email', 'token'];
 }

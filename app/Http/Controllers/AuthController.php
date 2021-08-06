@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Services\RestoringService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
@@ -40,12 +41,18 @@ class AuthController extends Controller
 
     public function restoreEmail(Request $request){
         if(User::where('email', $request->email)->first()){
-            Mail::to($request->email)->send(new RestoringEmail(RestoringService::createToken($request)));
+            Mail::to($request->email)->send(new RestoringEmail('http://localhost:8080/new-password/' . RestoringService::createToken($request)));
         }
     }
 
     public function restorePassword(Request $request){
         $user = User::where('email', RestoringPassword::where('token', $request->token)->first()->email)->first();
-        $user->password(bcrypt($request['password']));
+        $token_date = RestoringPassword::where('token', $request->token)->first()->created_at;
+        if ($token_date->diffInMinutes(Carbon::now()) > 30){
+            return response('Token is expired', 401);
+        }else{
+            $user->password = bcrypt($request['password']);
+            $user->save();
+        }
     }
 }

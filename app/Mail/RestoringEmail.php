@@ -16,9 +16,9 @@ class RestoringEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct($link)
     {
-        $this->token = $token;
+        $this->link = $link;
     }
 
     /**
@@ -28,6 +28,6 @@ class RestoringEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('test');
+        return $this->view('test', ['link' => $this->link]);
     }
 }
