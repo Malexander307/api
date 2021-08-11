@@ -28,6 +28,7 @@ class ProductRequest extends FormRequest
             'location' => 'required|max:255',
             'description' => 'nullable',
             'price' => 'required',
+            'category_id' => 'required|integer',
             'photos.*' => 'image',
         ];
     }
