@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Http\Request;
@@ -20,5 +21,6 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
     Route::post('search_name', [SearchController::class, 'searchName']);
     Route::post('search', [SearchController::class, 'products']);
     Route::resource('/categories', CategoriesController::class);
+    Route::post('/addToFavourites', [FavouriteController::class, 'index']);
 });
 
