@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Favourites;
+use App\Http\Requests\FavoriteRequest;
+use App\Services\FavoriteService;
 use Illuminate\Http\Request;
 
 class FavouriteController extends Controller
 {
 
-    public function store(Request $request)
+    public function store(FavoriteRequest $request)
     {
-        Favourites::create([
-                               'user_id' => $request->user()->id,
-                               'product_id' => $request->product_id
-                           ]);
+        FavoriteService::create($request);
     }
 
-    public function destroy($id)
+    public function destroy(FavoriteRequest $request)
     {
-        //
+         FavoriteService::delete($request);
     }
 }

@@ -12,14 +12,9 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         return response(ProductReposetory::productsAll(), 200);
-    }
-
-    public function create()
-    {
-        //
     }
 
     public function store(ProductRequest $request)
@@ -37,12 +32,7 @@ class ProductController extends Controller
         //
     }
 
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
         ProductService::updateProduct($request, $id);
     }

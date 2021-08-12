@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Photo;
 use App\Models\Products;
+use http\Exception\RuntimeException;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
 use Image4IO\Image4IOApi;
@@ -56,12 +57,16 @@ class ProductService
     }
 
     public static function updateProduct($request, $id){
-        $product = Products::find($id);
-        $product->title = $request->title;
-        $product->description = $request->description;
-        $product->description = $request->location;
-        $product->price = $request->price;
-        $product->category_id = $request->category_id;
-        $product->save();
+        try {
+            $product = Products::find($id);
+            $product->title = $request->title;
+            $product->description = $request->description;
+            $product->description = $request->location;
+            $product->price = $request->price;
+            $product->category_id = $request->category_id;
+            $product->save();
+        }catch (\Exception $exception){
+            throw new RuntimeException($exception);
+        }
     }
 }
