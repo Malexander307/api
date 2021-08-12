@@ -13,4 +13,8 @@ class RestoringService
                 'token' => Str::random(30),
         ])->token;
     }
+
+    public static function deleteToken($token){
+        RestoringPassword::where('token', $token)->delete();
+    }
 }

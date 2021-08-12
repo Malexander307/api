@@ -13,4 +13,9 @@ class UserService
             'password' => bcrypt($request['password'])
         ]);
     }
+
+    public static function updatePassword($user, $new_password){
+        $user->password = bcrypt($new_password);
+        $user->save();
+    }
 }
