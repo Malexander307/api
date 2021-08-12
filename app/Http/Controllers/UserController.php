@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Reposetories\UserRepository;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
 
-    public function show(Request $request)
+    public function index()
     {
-        $user = User::where('id', $request->user()->id)->first();
-
-
+        return UserRepository::getUser(request()->user()->id);
     }
 
-    public function update(Request $request, $id)
+    public function show(Request $request)
     {
-        //
+        return UserResource::collection(UserRepository::getUser($request->user()->id));
+    }
+
+    public function update(Request $request)
+    {
+
     }
 
     public function destroy($id)

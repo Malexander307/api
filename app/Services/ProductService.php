@@ -6,7 +6,6 @@ use App\Models\Photo;
 use App\Models\Products;
 use http\Exception\RuntimeException;
 use Illuminate\Support\Facades\DB;
-use PHPUnit\Exception;
 use Image4IO\Image4IOApi;
 
 class ProductService
@@ -26,7 +25,8 @@ class ProductService
             DB::commit();
         }catch (\Exception $exception){
             DB::rollBack();
-            throw response($exception, 500);
+            dd($exception);
+            return $exception;
         }
     }
 

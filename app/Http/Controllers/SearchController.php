@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Products;
 use App\Reposetories\ProductReposetory;
 use App\Reposetories\SearchReposetory;
-use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller

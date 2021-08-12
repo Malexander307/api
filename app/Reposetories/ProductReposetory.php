@@ -4,7 +4,6 @@ namespace App\Reposetories;
 use App\Http\Resources\ProductResource;
 use App\Models\Products;
 use http\Exception\RuntimeException;
-use Mockery\Exception;
 
 class ProductReposetory
 {
@@ -19,10 +18,9 @@ class ProductReposetory
             if(!empty($request->location)){ $products = SearchReposetory::searchLocation($request->location, $products);}
             if(!empty($request->category)){ $products = SearchReposetory::searchCategory($request->category, $products);}
             if(!empty($request->price)){ $products = SearchReposetory::searchPrice($request->price, $products);}
-            return $products->paginate(10);
+            return $products->paginate($request->per_page);
         }catch (\Exception $exception){
-            dd($exception);
-            throw new RuntimeException($exception, 500);
+            return $exception;
         }
     }
 }

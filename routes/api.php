@@ -6,7 +6,6 @@ use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RestoringPasswordController;
 use App\Http\Controllers\SearchController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 

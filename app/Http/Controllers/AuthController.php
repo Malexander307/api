@@ -3,15 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
-use App\Mail\RestoringEmail;
-use App\Models\RestoringPassword;
 use App\Models\User;
-use App\Services\RestoringService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller

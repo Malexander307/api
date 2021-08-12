@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categories;
-use App\Models\Products;
 use App\Reposetories\CategoriesReposetory;
 use Illuminate\Http\Request;
 
