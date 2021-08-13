@@ -43,6 +43,10 @@ class User extends Authenticatable
     ];
 
     public function products(){
-        $this->hasMany(Products::class, 'user_id');
+        return $this->hasMany(Products::class, 'user_id');
+    }
+
+    public function favorites(){
+        return $this->hasManyThrough(Products::class, Favourites::class, 'user_id', 'product_id', 'id', 'id');
     }
 }

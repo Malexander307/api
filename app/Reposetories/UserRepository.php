@@ -8,6 +8,6 @@ use App\Models\User;
 class UserRepository
 {
     public static function getUser($userId){
-        return User::where('id', $userId)->first();
+        return User::with('favorites')->where('id', $userId)->first();
     }
 }

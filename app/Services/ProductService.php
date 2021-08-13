@@ -25,7 +25,6 @@ class ProductService
             DB::commit();
         }catch (\Exception $exception){
             DB::rollBack();
-            dd($exception);
             return $exception;
         }
     }

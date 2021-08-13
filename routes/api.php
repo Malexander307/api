@@ -6,6 +6,7 @@ use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RestoringPasswordController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,6 +21,8 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
     Route::post('search_name', [SearchController::class, 'searchName']);
     Route::post('search', [SearchController::class, 'products']);
     Route::resource('/categories', CategoriesController::class);
-    Route::post('/addToFavourites', [FavouriteController::class, 'index']);
+    Route::post('/addToFavorites', [FavouriteController::class, 'store']);
+    Route::post('/removeFromFavorites', [FavouriteController::class, 'destroy']);
+    Route::get('user', [UserController::class, 'index']);
 });
 

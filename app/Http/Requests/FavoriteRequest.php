@@ -24,8 +24,7 @@ class FavoriteRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_id' => 'request|numeric|exists:products, id',
-            'user_id' => 'request|numeric|exists:users, id'
+            'product_id' => 'required|numeric|exists:products,id',
         ];
     }
 }
